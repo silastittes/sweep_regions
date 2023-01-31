@@ -52,5 +52,5 @@ If true is known about specific regions, in the case of simulated inout, this ta
 
 run unit tests 
 ```bash
-
+sweep_regions.R --do_tests
 ```
