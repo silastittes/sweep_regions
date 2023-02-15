@@ -408,7 +408,8 @@ main <- function() {
         file = args$data_frame,
         delim = args$delimeter,
         skip = args$skip_rows,
-        comment = args$skip_character
+        comment = args$skip_character,
+        col_names = FALSE
       ) %>% drop_na()
       chrom <- args$chromosome
       positions_vector <- sweep_data[[args$positions]]
@@ -429,15 +430,19 @@ main <- function() {
     
     if(!args$full_out && !is.null(args$truth_data)){
       true_df <- read.table(args$truth_data, header = TRUE)
-      out_df <- out_df %>%
-        label_TF_positives(true_df$positions, true_df$type) %>%
-        label_TF_negatives(true_df$positions, true_df$type)
+        if(nrow(out_df) < 1){
+            out_df <- out_df %>% label_TF_negatives(true_df$positions, true_df$type)
+        } else {
+            out_df <- out_df %>%
+            label_TF_positives(true_df$positions, true_df$type) %>%
+            label_TF_negatives(true_df$positions, true_df$type)       
+        }
     }
     
     
       #bedfile output
-      bedname <- paste0(strsplit(args$out_file, "\\.")[[1]][1], ".bed")
-      if(nrow(out_df > 0)){
+      bedname <- gsub(".csv", ".bed", args$out_file)
+      if(nrow(out_df) > 0){
         out_df %>% 
           mutate(start = start-1) %>% 
           select(chromosome, start, end) %>% 
@@ -482,7 +487,8 @@ main <- function() {
         file = args$data_frame,
         delim = args$delimeter,
         skip = args$skip_rows,
-        comment = args$skip_character
+        comment = args$skip_character,
+        col_names = FALSE
       ) %>% drop_na()
       positions_vector <- neutral_data[[args$positions]]
       values_vector <- neutral_data[[args$values]]
