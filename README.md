@@ -54,3 +54,5 @@ run unit tests
 ```bash
 sweep_regions.R --do_tests
 ```
+
+This code was first used in [The population genetics of convergent adaptation in maize and teosinte is not locally re Population Genetics of Convergent Adaptation in Maize and Teosinte is Not Locally Restricted](https://doi.org/10.7554/eLife.92405.3), and can be cited if this software is used in your own work.
