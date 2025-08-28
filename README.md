@@ -9,7 +9,7 @@ In population genetics, we often want to define outliers for signals of adaptati
 based on some summary statistic -- like FST -- that is above and beyond what we can expect from neutral demographic processes.
 However, outliers maybe defined at single SNP positions or a handful of them with considerable local autocorrelation.
 We don't really want to treat those autocorrelated regions as independent
-as they are likely being driven by the same process plus linkage.
+as they are likely being driven by the same selective process plus linkage.
 Some methods like Baypass deal with this formally and nicely, but not all do.
 This is my pretty simple duct tape style attempt to remidy this using R's `smooth.spline()` function.
 The basic idea is to use a smoothing spline to identify outlier regions with a statistic that is consitently elevated.
@@ -48,11 +48,11 @@ using generic input files with headers to identify the `positions` and statistic
 ```
 
 
-If true is known about specific regions, in the case of simulated inout, this table can be provided that lists a position as a sweep or neutral. The output regions will then be labeled with a `truth class` column that lists each regions as `true_positive` or `false_positive`. `true_negatives` and `false_negative`  will also be added to table if known neutral positions are in the `truth_data` input.
+If the truth is known about specific regions (i.e. simulated input) a table can be provided that lists positions as in a sweep or neutral. The output regions will then be labeled with a `truth class` column that lists each regions as `true_positive` or `false_positive`. `true_negative` and `false_negative`  will also be added to the table if known neutral positions are in the `truth_data` input.
 
 run unit tests 
 ```bash
 sweep_regions.R --do_tests
 ```
 
-This code was first used in [The population genetics of convergent adaptation in maize and teosinte is not locally re Population Genetics of Convergent Adaptation in Maize and Teosinte is Not Locally Restricted](https://doi.org/10.7554/eLife.92405.3), and can be cited if this software is used in your own work.
+This code was first used in [The Population Genetics of Convergent Adaptation in Maize and Teosinte is Not Locally Restricted](https://doi.org/10.7554/eLife.92405.3), and can be cited if this software is used in your own work.
